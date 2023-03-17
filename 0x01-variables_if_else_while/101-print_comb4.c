@@ -1,9 +1,10 @@
 #include <stdio.h>
 /**
- * main - entry point into the program
- * a program that prints all possible different combinations of three digits
+ * main - entry npoint into the program
+ * Prints all possible combinations of three different digits,
+ * in ascending order, separated by a comma followed by a space.
  *
- * Return: always 0 for success
+ * Return: Always 0 for success.
  */
 int main(void)
 {
