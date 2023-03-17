@@ -9,12 +9,10 @@
  */
 int main(void)
 {
-	char low_letter;
+	char low;
 
-	for (low_letter = 'a'; low_letter <= 'z'; low_letter++)
-	{
-		putchar(low_letter);
+	for (low = 'a'; low <= 'z'; low++)
+		putchar(low);
 		putchar('\n');
-	}
 	return (0);
 }
