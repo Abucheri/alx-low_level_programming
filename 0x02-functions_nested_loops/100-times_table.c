@@ -18,7 +18,7 @@ void print_times_table(int n)
 		{
 			for (b = 0; b <= n; b++)
 			{
-				z = a * b;
+				c = a * b;
 				if (c > 99)
 				{
 					_putchar(',');
