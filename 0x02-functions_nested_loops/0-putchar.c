@@ -16,7 +16,7 @@ int main(void)
 		my_chars++;
 	}
 
-	_putchar("\n");
+	_putchar('\n');
 
 	return (0);
 }
