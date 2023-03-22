@@ -8,27 +8,27 @@
  */
 int main(void)
 {
-	unsigned long int fr1 = 0, bk1 = 1, fr2 = 0, bk2 = 2;
-	unsigned long int hold1, hold2, hold3;
+	unsigned long int a = 0, b = 1, a1 = 0, b1 = 2;
+	unsigned long int c, d, e;
 	int count;
 
-	printf("%lu, %lu, ", bk1, bk2);
+	printf("%lu, %lu, ", b, b1);
 	for (count = 2; count < 98; count++)
 	{
-		if (bk1 + bk2 > LARGEST || fr2 > 0 || fr1 > 0)
+		if (b + b1 > LARGEST || a1 > 0 || a2 > 0)
 		{
-			hold1 = (bk1 + bk2) / LARGEST;
-			hold2 = (bk1 + bk2) % LARGEST;
-			hold3 = fr1 + fr2 + hold1;
-			fr1 = fr2, fr2 = hold3;
-			bk1 = bk2, bk2 = hold2;
-			printf("%lu%010lu", fr2, bk2);
+			c = (b + b1) / LARGEST;
+			d = (b + b1) % LARGEST;
+			e = a + a1 + c;
+			a = a1, a1 = e;
+			b = b1, b1 = d;
+			printf("%lu%010lu", a1, b1);
 		}
 		else
 		{
-			hold2 = bk1 + bk2;
-			bk1 = bk2, bk2 = hold2;
-			printf("%lu", bk2);
+			d = b + b1;
+			b = b1, b1 = d;
+			printf("%lu", b1);
 		}
 		if (count != 97)
 			printf(", ");
