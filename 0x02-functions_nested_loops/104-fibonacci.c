@@ -15,7 +15,7 @@ int main(void)
 	printf("%lu, %lu, ", b, b1);
 	for (count = 2; count < 98; count++)
 	{
-		if (b + b1 > LARGEST || a1 > 0 || a2 > 0)
+		if (b + b1 > LARGEST || a1 > 0 || a > 0)
 		{
 			c = (b + b1) / LARGEST;
 			d = (b + b1) % LARGEST;
