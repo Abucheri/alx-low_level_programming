@@ -10,41 +10,16 @@
 
 void print_number(int n)
 {
-	long a;
-	int b;
-	long c;
+	unsigned int a = n;
 
-	c = n;
-
-	if (c < 0)
+	if (n < 0)
 	{
-		c *= -1;
 		_putchar('-');
+		a = -a
 	}
 
+	if ((a / 10) > 0)
+		print_number(a / 10);
 
-	a = 1;
-	b = 1;
-	while (b)
-	{
-		if (c / (a * 10) > 0)
-			a *= 10;
-		else
-			b = 0;
-	}
-
-
-	while (c >= 0)
-	{
-		if (a == 1)
-		{
-			_putchar(c % 10 + '0');
-			c = -1;
-		}
-		else
-		{
-			_putchar((c / a % 10) + '0');
-			a /= 10;
-		}
-	}
+	_putchar((a % 10) + '0');
 }
