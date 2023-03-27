@@ -31,10 +31,10 @@ int main(void)
 			c = 'a' + n - 36;
 		}
 
-		_putchar(c);
+		putchar(c);
 		sum += c;
 	}
 
-	_putchar(2772 - sum);
+	putchar(2772 - sum);
 	return (0);
 }
