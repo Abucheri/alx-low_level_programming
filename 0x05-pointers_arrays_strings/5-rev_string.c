@@ -11,22 +11,25 @@
 
 void rev_string(char *s)
 {
-	char ch, *p, *q;
+	int i, c = 0, k = 0;
+	char *a, aux;
 
-	for (q = s; *q != '\0'; ++q)
+	a = s;
+
+	while (s[c] != '\0')
 	{
-		;
-	}
-	if (q > s)
-	{
-		--q;
+		c++;
 	}
 
-	for (p = s; p < q; ++p, --q)
+	for (k = 1; k < c; k++)
 	{
-		ch = *p;
-		*p = *q;
-		*q = ch;
+		a++;
 	}
-	return (s);
+
+	for (i = 0; i < (c / 2); i++)
+	{
+		aux = s[i];
+		s[i] = *(a - i);
+		*(a - i) = aux;
+	}
 }
