@@ -10,25 +10,19 @@
 
 char *leet(char *a)
 {
-	int x = 0, b = 0, i = 5;
-	char y[5] = {'A', 'E', 'O', 'T', 'L'};
-	char z[5] = {'4', '3', '0', '7', '1'};
+	int i1 = 0, i2;
+	char l[8] = {'O', 'L', '?', 'E', 'A', '?', '?', 'T'};
 
-	while (a[x])
+	while (a[i1])
 	{
-		b = 0;
-
-		while (b < i)
+		for (i2 = 0; i2 <= 7; i2++)
 		{
-			if (a[x] == y[b] || a[x] - 32 == y[b])
-			{
-				a[x] = z[b];
-			}
-
-			b++;
+			if (a[i1] == l[i2] ||
+			    a[i1] - 32 == l[i2])
+				a[i1] = i2 + '0';
 		}
 
-		x++;
+		i1++;
 	}
 
 	return (a);
