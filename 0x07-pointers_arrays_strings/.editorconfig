@@ -1,2 +1,8 @@
+# editorconfig for 0x07-pointers_arrays_strings
+root = false
+
 [*]
+insert_final_newline = true
+
+[0x07-pointers_arrays_strings/**]
 insert_final_newline = false
