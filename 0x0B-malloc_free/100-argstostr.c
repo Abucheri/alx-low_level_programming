@@ -24,7 +24,7 @@ char *argstostr(int ac, char **av)
 	{
 		for (c = 0; av[b][c]; c++)
 		{
-			size++;
+			d++;
 		}
 	}
 
