@@ -2,251 +2,107 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int lenth(char *str);
-char *carray(int size);
-char *iterate_zeroes(char *str);
-int digi(char a);
-void prods(char *prod, char *mult, int digit, int zeroes);
-void sums(char *final_prod, char *next_prod, int next_len);
+#define ERR_MSG "Error"
 
 /**
- * lenth - finds the length of a string
+ * is_digit - checks if a string contains a non-digit char
  *
- * @str: string input
+ * @s: string to be evaluated
  *
- * Return: length of the str
+ * Return: 0 if a non-digit is found, 1 otherwise
  */
-int lenth(char *str)
-{
-	int len = 0;
 
-	while (*str++)
+int is_digit(char *s)
+{
+	int i = 0;
+
+	while (s[i])
 	{
-		len++;
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
 	}
-	return (len);
+	return (1);
 }
 
 /**
- * carray - creates an array of chars and initializes it with
- * the x-ter 'x' and adds a terminating null byte
+ * _strlen - returns the length of a string
  *
- * @size: size of the array
+ * @s: string to evaluate
  *
- * Return: pointer to the array
- * If there is insufficient space, the
- * function exits with a status of 98
+ * Return: the length of the string
  */
 
-char *carray(int size)
+int _strlen(char *s)
 {
-	char *a;
-	int i;
+	int i = 0;
 
-	a = malloc(sizeof(char) * size);
-
-	if (a == NULL)
+	while (s[i] != '\0')
 	{
-		exit(98);
+		i++;
 	}
-	for (i = 0; i < (size - 1); i++)
-	{
-		a[i] = 'x';
-	}
-	a[index] = '\0';
-
-	return (a);
+	return (i);
 }
 
 /**
- * iterate_zeroes - iterates through a string of numbers containing
- * leading zeroes until it hits a non-zero number
- *
- * @str: string of numbers to be iterate through
- *
- * Return: pointer to the next non-zero element
+ * errors - handles errors for main
  */
 
-char *iterate_zeroes(char *str)
+void errors(void)
 {
-	while (*str && *str == '0')
-	{
-		str++;
-	}
-	return (str);
-}
-
-/**
- * digi - converts a digit character to a corresponding int
- *
- * @a: character to be converted.
- *
- * Return: The converted int
- * if c is a non-digit, the function,
- * exits with a status of 98
- */
-
-int digi(char a)
-{
-	int digit = a - '0';
-
-	if (digit < 0 || digit > 9)
-	{
-		printf("Error\n");
-		exit(98);
-	}
-
-	return (digit);
-}
-
-/**
- * prods - multiplies a string of numbers by a single digit
- *
- * @prod: buffer to store the result
- * @mult: string of numbers
- * @digit: single digit
- * @zeroes: necessary no. of leading zeroes
- *
- * Return: if mult contains a non-digit, function
- * exits with a status value of 98
- */
-
-void prods(char *prod, char *mult, int digit, int zeroes)
-{
-	int len, n, mults = 0;
-
-	len = lenth(mult) - 1;
-	mult += len;
-
-	while (*prod)
-	{
-		*prod = 'x';
-		prod++;
-	}
-
-	prod--;
-
-	while (zeroes--)
-	{
-		*prod = '0';
-		prod--;
-	}
-
-	for (; len >= 0; len--, mult--, prod--)
-	{
-		if (*mult < '0' || *mult > '9')
-		{
-			printf("Error\n");
-			exit(98);
-		}
-
-		n = (*mult - '0') * digit;
-		n += mults;
-		*prod = (n % 10) + '0';
-		mults = n / 10;
-	}
-
-	if (mults)
-		*prod = (mults % 10) + '0';
-}
-
-/**
- * sums - adds no.s stored in two strings
- *
- * @final_prod: buffer storing the running final product
- * @next_prod: next product to be added
- * @next_len: length of next_prod
- *
- * Return: Nothing
- */
-
-void sums(char *final_prod, char *next_prod, int next_len)
-{
-	int n, divs = 0;
-
-	while (*(final_prod + 1))
-		final_prod++;
-
-	while (*(next_prod + 1))
-		next_prod++;
-
-	for (; *final_prod != 'x'; final_prod--)
-	{
-		n = (*final_prod - '0') + (*next_prod - '0');
-		n += divs;
-		*final_prod = (n % 10) + '0';
-		divs = n / 10;
-
-		next_prod--;
-		next_len--;
-	}
-
-	for (; next_len >= 0 && *next_prod != 'x'; next_len--)
-	{
-		n = (*next_prod - '0');
-		n += divs;
-		*final_prod = (n % 10) + '0';
-		divs = n / 10;
-
-		final_prod--;
-		next_prod--;
-	}
-
-	if (divs)
-		*final_prod = (divs % 10) + '0';
+	printf("Error\n");
+	exit(98);
 }
 
 /**
  * main - multiplies two positive numbers
  *
- * @argv: pointer to the array of arguments
- * @argc: no. of arguments entered in array
+ * @argc: number of arguments
+ * @argv: array of arguments
  *
  * Return: always 0 for success
- * if the no. of arguments is incorrect or one number
- * contains non-digits, the function exits with a status of 98
  */
 
 int main(int argc, char *argv[])
 {
-	char *final_prod, *next_prod;
-	int s, i, my_digit, zeroes = 0;
+	char *s1, *s2;
+	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
 
-	if (argc != 3)
+	s1 = argv[1], s2 = argv[2];
+	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
+		errors();
+	len1 = _strlen(s1);
+	len2 = _strlen(s2);
+	len = len1 + len2 + 1;
+	result = malloc(sizeof(int) * len);
+	if (!result)
+		return (1);
+	for (i = 0; i <= len1 + len2; i++)
+		result[i] = 0;
+	for (len1 = len1 - 1; len1 >= 0; len1--)
 	{
-		printf("Error\n");
-		exit(98);
+		digit1 = s1[len1] - '0';
+		carry = 0;
+		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
+		{
+			digit2 = s2[len2] - '0';
+			carry += result[len1 + len2 + 1] + (digit1 * digit2);
+			result[len1 + len2 + 1] = carry % 10;
+			carry /= 10;
+		}
+		if (carry > 0)
+			result[len1 + len2 + 1] += carry;
 	}
-
-	if (*(argv[1]) == '0')
-		argv[1] = iterate_zeroes(argv[1]);
-	if (*(argv[2]) == '0')
-		argv[2] = iterate_zeroes(argv[2]);
-	if (*(argv[1]) == '\0' || *(argv[2]) == '\0')
+	for (i = 0; i < len - 1; i++)
 	{
-		printf("0\n");
-		return (0);
+		if (result[i])
+			a = 1;
+		if (a)
+			_putchar(result[i] + '0');
 	}
-
-	s = lenth(argv[1]) + lenth(argv[2]);
-	final_prod = carray(s + 1);
-	next_prod = carray(s + 1);
-
-	for (i = lenth(argv[2]) - 1; i >= 0; i--)
-	{
-		my_digit = digi(*(argv[2] + i));
-		prods(next_prod, argv[1], my_digit, zeroes++);
-		sums(final_prod, next_prod, s - 1);
-	}
-	for (i = 0; final_prod[i]; i++)
-	{
-		if (final_prod[i] != 'x')
-			putchar(final_prod[i]);
-	}
-	putchar('\n');
-
-	free(next_prod);
-	free(final_prod);
-
+	if (!a)
+		_putchar('0');
+	_putchar('\n');
+	free(result);
 	return (0);
 }
