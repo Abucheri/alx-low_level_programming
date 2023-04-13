@@ -19,39 +19,40 @@
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	void *mem_loc;
-	char *ptr1, *x;
+	char *ptr1;
+	char *old_ptr;
 	unsigned int i;
 
 	if (new_size == old_size)
 		return (ptr);
 
-	if (ptr == NULL)
+	if (new_size == 0 && ptr)
 	{
-		mem_loc = malloc(new_size);
-
-		if (mem_loc == NULL)
-			return (NULL);
-
-		return (mem_loc);
+		free(ptr);
+		return (NULL);
 	}
 
-	if (new_size == 0 && ptr != NULL)
-		free(ptr);
+	if (!ptr)
+		return (malloc(new_size));
+
+	ptr1 = malloc(new_size);
+	if (!ptr1)
 		return (NULL);
 
-	ptr1 = ptr;
-	mem_loc = malloc(sizeof(*ptr1) * new_size);
+	old_ptr = ptr;
 
-	if (mem_loc == NULL)
-		free(ptr);
-		return (NULL);
+	if (new_size < old_size)
+	{
+		for (i = 0; i < new_size; i++)
+			ptr1[i] = old_ptr[i];
+	}
 
-	x = mem_loc;
-
-	for (i = 0; i < old_size && i < new_size; i++)
-		x[i] = *ptr1++;
+	if (new_size > old_size)
+	{
+		for (i = 0; i < old_size; i++)
+			ptr1[i] = old_ptr[i];
+	}
 
 	free(ptr);
-	return (mem_loc);
+	return (ptr1);
 }
