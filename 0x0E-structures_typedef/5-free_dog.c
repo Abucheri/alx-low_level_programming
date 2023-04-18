@@ -3,7 +3,7 @@
 
 /**
  * free_dog - frees dogs
- * 
+ *
  * @d: dog to be freed
  *
  */
