@@ -5,7 +5,7 @@
 /**
  * print_numbers - prints numbers
  *
- * @seperator: string to be printed btwn no.s
+ * @separator: string to be printed btwn no.s
  * @n: no. of integers passed to the function
  * @...: variable number of numbers to be printed
  *
