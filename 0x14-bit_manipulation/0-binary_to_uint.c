@@ -13,24 +13,20 @@
 
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int n, i;
+	int i;
+	unsigned int du = 0;
 
-	if (!b || *b)
+	if (!b)
 	{
 		return (0);
 	}
-	n = i = 0;
-	while (b[i])
+	for (i = 0; b[i]; i++)
 	{
-		if (b[i] > 49)
-			return (0);
-		else if (b[i] == 49)
+		if (b[i] < '0' || b[i] > '1')
 		{
-			n <<= 1;
-			n += 1;
-		} else
-			n <<= 1;
-		i++;
+			return (0);
+		}
+		du = 2 * du + (b[i] - '0');
 	}
-	return (n);
+	return (du);
 }
