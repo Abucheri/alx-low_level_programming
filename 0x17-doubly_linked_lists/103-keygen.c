@@ -2,52 +2,50 @@
 #include <string.h>
 #include <stdlib.h>
 
-void generate_key(const char *username, char *key);
-
 /**
- * generate_key - generates a key based on the username
- *
- * @username: name for which the key is generated
- * @key: generated key (output parameter)
- *
- * Return: Nothing
- */
-
-void generate_key(const char *username, char *key)
-{
-	int i;
-	unsigned char hash;
-
-	memset(key, 0, 64);
-	for (i = 0, hash = 0; username[i]; ++i)
-	{
-		hash += username[i];
-	}
-	sprintf(key, "%02x%02x%02x%02x", hash, hash, hash, hash);
-}
-
-/**
- * main - entry point into program
+ * main - entry point into program, generates pass for crackme5
  *
  * @argc: no. of command-line arguments
  * @argv: array of strings containing the command-line arguments
  *
  * Return: 0, for success
- * else, 1 for incorrect usage
  */
 
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-	char key[64];
-	char *username;
+	char generatedPassword[7], *characters;
+	int usernameLength = strlen(argv[1]);
+	int i, temp;
+	int xorValues[] = {59, 79, 85, 14, 239};
 
-	if (argc != 2)
+	characters = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW";
+	characters += "6fxqZeF3Qa1rPhdKIouk";
+	temp = (usernameLength ^ xorValues[usernameLength - 1]) & 63;
+	generatedPassword[0] = characters[temp];
+	temp = 0;
+	for (i = 0; i < usernameLength; i++)
+		temp += argv[1][i];
+	generatedPassword[1] = characters[(temp ^ 79) & 63];
+	temp = 1;
+	for (i = 0; i < usernameLength; i++)
+		temp *= argv[1][i];
+	generatedPassword[2] = characters[(temp ^ 85) & 63];
+	temp = 0;
+	for (i = 0; i < usernameLength; i++)
 	{
-		printf("Usage: %s <username>\n", argv[0]);
-		return (1);
+		if (argv[1][i] > temp)
+			temp = argv[1][i];
 	}
-	username = argv[1];
-	generate_key(username, key);
-	printf("%s\n", key);
+	srand(temp ^ 14);
+	generatedPassword[3] = characters[rand() & 63];
+	temp = 0;
+	for (i = 0; i < usernameLength; i++)
+		temp += (argv[1][i] * argv[1][i]);
+	generatedPassword[4] = characters[(temp ^ 239) & 63];
+	for (i = 0; i < argv[1][0]; i++)
+		temp = rand();
+	generatedPassword[5] = characters[(temp ^ 229) & 63];
+	generatedPassword[6] = '\0';
+	printf("%s", generatedPassword);
 	return (0);
 }
