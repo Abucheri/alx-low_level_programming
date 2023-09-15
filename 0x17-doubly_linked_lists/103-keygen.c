@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-#define KEY_LENGTH 32
+#include <stdlib.h>
 
 void generate_key(const char *username, char *key);
 
@@ -17,17 +16,14 @@ void generate_key(const char *username, char *key);
 void generate_key(const char *username, char *key)
 {
 	int i;
-	int len = strlen(username);
+	unsigned char hash;
 
-	memset(key, 0, KEY_LENGTH);
-	for (i = 0; i < len; i++)
+	memset(key, 0, 64);
+	for (i = 0, hash = 0; username[i]; ++i)
 	{
-		key[i] = username[i] ^ (i + 1);
+		hash += username[i];
 	}
-	for (; i < KEY_LENGTH; i++)
-	{
-		key[i] = key[i % len];
-	}
+	sprintf(key, "%02x%02x%02x%02x", hash, hash, hash, hash);
 }
 
 /**
@@ -42,7 +38,7 @@ void generate_key(const char *username, char *key)
 
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-	char key[KEY_LENGTH];
+	char key[64];
 	char *username;
 
 	if (argc != 2)
