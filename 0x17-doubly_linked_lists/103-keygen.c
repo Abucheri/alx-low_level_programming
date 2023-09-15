@@ -20,10 +20,13 @@ void generate_key(const char *username, char *key)
 	int len = strlen(username);
 
 	memset(key, 0, KEY_LENGTH);
-	snprintf(key, KEY_LENGTH, "KeyFor%s", username);
-	for (i = len + 6; i < KEY_LENGTH; i++)
+	for (i = 0; i < len; i++)
 	{
-		key[i] = key[i % (len + 6)];
+		key[i] = username[i] ^ (i + 1);
+	}
+	for (; i < KEY_LENGTH; i++)
+	{
+		key[i] = key[i % len];
 	}
 }
 
@@ -49,6 +52,6 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	}
 	username = argv[1];
 	generate_key(username, key);
-	printf("Generated key for %s: %s\n", username, key);
+	printf("%s\n", key);
 	return (0);
 }
