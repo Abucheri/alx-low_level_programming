@@ -13,42 +13,40 @@
 
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-	char generatedPassword[7], *characters;
-	int usernameLength = strlen(argv[1]);
-	int i, temp;
+	char pass[7], *code;
+	int len = strlen(argv[1]), i, t;
 
-	characters = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW";
-	characters += "6fxqZeF3Qa1rPhdKIouk";
-	temp = (usernameLength ^ 59) & 63;
-	generatedPassword[0] = characters[temp];
-	temp = 0;
-	for (i = 0; i < usernameLength; i++)
-		temp += argv[1][i];
-	temp ^= 79;
-	generatedPassword[1] = characters[temp & 63];
-	temp = 1;
-	for (i = 0; i < usernameLength; i++)
-		temp *= argv[1][i];
-	temp ^= 85;
-	generatedPassword[2] = characters[temp & 63];
-	temp = 0;
-	for (i = 0; i < usernameLength; i++)
+	code = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxqZeF3Qa1rPhdKIouk";
+	t = (len ^ 59) & 63;
+	pass[0] = code[t];
+	t = 0;
+	for (i = 0; i < len; i++)
+		t += argv[1][i];
+	t ^= 79;
+	pass[1] = code[t & 63];
+	t = 1;
+	for (i = 0; i < len; i++)
+		t *= argv[1][i];
+	t ^= 85;
+	pass[2] = code[t & 63];
+	t = 0;
+	for (i = 0; i < len; i++)
 	{
-		if (argv[1][i] > temp)
-			temp = argv[1][i];
+		if (argv[1][i] > t)
+			t = argv[1][i];
 	}
-	srand(temp ^ 14);
-	generatedPassword[3] = characters[rand() & 63];
-	temp = 0;
-	for (i = 0; i < usernameLength; i++)
-		temp += (argv[1][i] * argv[1][i]);
-	temp ^= 239;
-	generatedPassword[4] = characters[temp & 63];
+	srand(t ^ 14);
+	pass[3] = code[rand() & 63];
+	t = 0;
+	for (i = 0; i < len; i++)
+		t += (argv[1][i] * argv[1][i]);
+	t ^= 239;
+	pass[4] = code[t & 63];
 	for (i = 0; i < argv[1][0]; i++)
-		temp = rand();
-	temp ^= 229;
-	generatedPassword[5] = characters[temp & 63];
-	generatedPassword[6] = '\0';
-	printf("%s", generatedPassword);
+		t = rand();
+	t ^= 229;
+	pass[5] = code[t & 63];
+	pass[6] = '\0';
+	printf("%s", pass);
 	return (0);
 }
