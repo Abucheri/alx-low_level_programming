@@ -1,15 +1,6 @@
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
-
-/**
- * printf - ensures I get jackpot
- *
- * @format: first param
- * @...: second param
- *
- * Return: jackpot no.s
- */
+#include <unistd.h>
 
 int printf(const char *format, ...)
 {
