@@ -1,3 +1,3 @@
 #!/bin/bash
-gcc -shared -o myjackpot.so -fPIC myjackpot.c
-export LD_PRELOAD="$PWD/myjackpot.so"
+gcc -shared -o test.so -fPIC test.c
+export LD_PRELOAD="$PWD/test.so"
