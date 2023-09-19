@@ -5,7 +5,7 @@
 /**
  * printf - ensures I get jackpot
  *
- * @fmt: first param
+ * @format: first param
  * @...: second param
  *
  * Return: jackpot no.s
