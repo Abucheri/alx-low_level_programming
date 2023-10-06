@@ -151,3 +151,43 @@
 	470
 	julien@ubuntu:~/0x1A. Hash tables$ 
 	```
+
+3. >>> ht['betty'] = 'cool'
+	- Write a function that adds an element to the hash table.
+		- Prototype: `int hash_table_set(hash_table_t *ht, const char *key, const char *value);`
+			- Where `ht` is the hash table you want to add or update the key/value to
+			- `key` is the key. `key` can not be an empty string
+			- and `value` is the value associated with the key. `value` must be duplicated. `value` can be an empty string
+		- Returns: `1` if it succeeded, `0` otherwise
+		- In case of collision, add the new node at the beginning of the list
+	```
+	julien@ubuntu:~/0x1A. Hash tables$ cat 3-main.c 
+	#include <stdlib.h>
+	#include <string.h>
+	#include <stdio.h>
+	#include "hash_tables.h"
+
+	/**
+	 * main - check the code
+	 *
+	 * Return: Always EXIT_SUCCESS.
+	 */
+	int main(void)
+	{
+    		hash_table_t *ht;
+
+    		ht = hash_table_create(1024);
+    		hash_table_set(ht, "betty", "cool");
+    		return (EXIT_SUCCESS);
+	}
+	julien@ubuntu:~/0x1A. Hash tables$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 3-main.c 0-hash_table_create.c 1-djb2.c 2-key_index.c 3-hash_table_set.c -o d
+	julien@ubuntu:~/0x1A. Hash tables$
+	```
+	- If you want to test for collisions, here are some strings that collide using the djb2 algorithm:
+		- ___hetairas___ collides with ___mentioner___
+		- ___heliotropes___ collides with ___neurospora___
+		- ___depravement___ collides with ___serafins___
+		- ___stylist___ collides with ___subgenera___
+		- ___joyful___ collides with ___synaphea___
+		- ___redescribed___ collides with ___urites___
+		- ___dram___ collides with ___vivency___
