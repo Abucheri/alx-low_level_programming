@@ -103,3 +103,51 @@
 	5861846
 	julien@ubuntu:~/0x1A. Hash tables$ 
 	```
+
+2. key -> index
+	- Write a function that gives you the index of a key.
+		- Prototype: `unsigned long int key_index(const unsigned char *key, unsigned long int size);`
+			- where `key` is the key
+			- and `size` is the size of the array of the hash table
+		- This function should use the `hash_djb2` function that you wrote earlier
+		- Returns the index at which the key/value pair should be stored in the array of the hash table
+		- You will have to use this hash function for all the next tasks
+	```
+	julien@ubuntu:~/0x1A. Hash tables$ cat 2-main.c 
+	#include <stdlib.h>
+	#include <string.h>
+	#include <stdio.h>
+	#include "hash_tables.h"
+
+	/**
+	 * main - check the code
+	 *
+	 * Return: Always EXIT_SUCCESS.
+	 */
+	int main(void)
+	{
+    		char *s;
+    		unsigned long int hash_table_array_size;
+
+    		hash_table_array_size = 1024;
+    		s = "cisfun";
+    		printf("%lu\n", hash_djb2((unsigned char *)s));
+    		printf("%lu\n", key_index((unsigned char *)s, hash_table_array_size));
+    		s = "Don't forget to tweet today";
+    		printf("%lu\n", hash_djb2((unsigned char *)s));
+    		printf("%lu\n", key_index((unsigned char *)s, hash_table_array_size));
+    		s = "98";
+    		printf("%lu\n", hash_djb2((unsigned char *)s));
+    		printf("%lu\n", key_index((unsigned char *)s, hash_table_array_size));  
+    		return (EXIT_SUCCESS);
+	}
+	julien@ubuntu:~/0x1A. Hash tables$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 2-main.c 1-djb2.c 2-key_index.c -o c
+	julien@ubuntu:~/0x1A. Hash tables$ ./c 
+	6953392314605
+	237
+	3749890792216096085
+	341
+	5861846
+	470
+	julien@ubuntu:~/0x1A. Hash tables$ 
+	```
